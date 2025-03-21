@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect | Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            padding: 20px;
+            letter-spacing: 1px;
+        }
+        .profile-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            margin: auto;
+            margin-top: 40px;
+            color: #333;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #ff5722, #ff8a50);
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(to right, #e64a19, #ff7043);
+            transform: scale(1.05);
+        }
+        .dashboard-link {
+            color: #ff5722;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .dashboard-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">Campus Connect</div>
+
+    <div class="profile-container">
+        <h2 style="font-weight: 600; color: #333;">Profile Details</h2>
+        <form method="POST" action="{{ url_for('dashboard') }}">
+            <div class="mb-3">
+                <label class="form-label">Full Name:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Register Number:</label>
+                <input type="text" name="register_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Department:</label>
+                <select name="department" class="form-control" required>
+                    <option value="CSE">Computer Science</option>
+                    <option value="ECE">Electronics & Communication</option>
+                    <option value="EEE">Electrical & Electronics</option>
+                    <option value="MECH">Mechanical</option>
+                    <option value="CIVIL">Civil</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contact Number:</label>
+                <input type="tel" name="contact" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">User Type:</label>
+                <select name="user_type" class="form-control">
+                    <option value="student">Student</option>
+                    <option value="alumni">Alumni</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Bio:</label>
+                <textarea name="bio" class="form-control" rows="3" placeholder="Write something about yourself..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+        <p class="mt-3">Go back to <a href="{{ url_for('dashboard') }}" class="dashboard-link">Dashboard</a></p>
+    </div>
+
+</body>
+</html>

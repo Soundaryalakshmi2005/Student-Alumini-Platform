@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect | Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            font-size: 32px;
+            font-weight: bold;
+            padding: 20px;
+        }
+        .signup-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 12px;
+            width: 400px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #ff5722;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #e64a19;
+        }
+        .login-link {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">Campus Connect</div>
+
+    <div class="signup-container">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{{ url_for('dashboard') }}">
+            <div class="mb-3">
+                <label>Name:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Password:</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary"> <a href="home.html">Sign Up</a> </button>
+        </form>
+        <p>Already have an account? <a href="login.html" class="login-link">Login</a></p>
+    </div>
+
+</body>
+</html>

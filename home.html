@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            text-align: center;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.2);9
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        .navbar a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .hero {
+            margin-top: 50px;
+        }
+        .post-card {
+            background: white;
+            color: black;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px auto;
+            width: 50%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        .post-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .post-actions button {
+            background: none;
+            border: none;
+            color: #ff5722;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .post-actions button:hover {
+            color: #e64a19;
+        }
+        .post-actions button.liked {
+            color: red;
+        }
+        .post-actions button.saved {
+            color: blue;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .bottom-nav a:hover {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="#" onclick="showSection('home')">Campus Connect</a>
+        <a href="dashboard.html" onclick="showSection('dashboard')">Dashboard</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Sign Up</a>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <h1>Welcome to Campus Connect</h1>
+        <p>Connect, Network, and Grow Together</p>
+        <a href="#" onclick="showSection('dashboard')" class="btn btn-warning">Go to Dashboard</a>
+
+        <!-- Sample Posts -->
+        <div class="post-card">
+            <h4>Vishwa </h4>
+            <p>Had a great experience at today's coding bootcamp! 🚀</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDYRu_7PoDuRjNg7hPbeHymXgqhTBntqBgMA&s" alt="Coding Bootcamp">
+            <div class="post-actions">
+                <button onclick="toggleLike(this)">❤️ Like (<span>0</span>)</button>
+                <button onclick="alert('Shared Successfully!')">🔄 Share</button>
+                <button onclick="commentPost(this)">💬 Comment</button>
+                <button onclick="toggleSave(this)">💾 Save</button>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <h4>Sanjay</h4>
+
+            <p>Excited to start my internship at a top IT firm! 🎉</p>
+            <img src="https://cambojanews.com/wp-content/uploads/2022/04/2022-04-25-16.04.35.jpg" alt="Internship">
+            <div class="post-actions">
+                <button onclick="toggleLike(this)">❤️ Like (<span>0</span>)</button>
+                <button onclick="alert('Shared Successfully!')">🔄 Share</button>
+                <button onclick="commentPost(this)">💬 Comment</button>
+                <button onclick="toggleSave(this)">💾 Save</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard" style="display: none;">
+        <h1>Welcome, {{ user.name }}!</h1>
+        <p>You are logged in as a {{ user.user_type }}.</p>
+        <nav>
+            <a href="{{ url_for('profile') }}">Edit Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" onclick="showSection('home')">Home</a>
+        <a href="post.html">Post</a>
+        <a href="message.html">Messages</a>
+        <a href="{{ url_for('network') }}">My Network</a>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('home').style.display = (sectionId === 'home') ? 'block' : 'none';
+            document.getElementById('dashboard').style.display = (sectionId === 'dashboard') ? 'block' : 'none';
+        }
+
+        function toggleLike(button) {
+            let countSpan = button.querySelector('span');
+            let count = parseInt(countSpan.textContent);
+            if (button.classList.contains('liked')) {
+                button.classList.remove('liked');
+                countSpan.textContent = count - 1;
+            } else {
+                button.classList.add('liked');
+                countSpan.textContent = count + 1;
+            }
+        }
+
+        function toggleSave(button) {
+            if (button.classList.contains('saved')) {
+                button.classList.remove('saved');
+                button.innerHTML = "💾 Save";
+                alert('Removed from Saved Posts');
+            } else {
+                button.classList.add('saved');
+                button.innerHTML = "💾 Saved!";
+                alert('Post Saved Successfully!');
+            }
+        }
+
+        function commentPost(button) {
+            let comment = prompt("Enter your comment:");
+            if (comment) {
+                alert("Comment added: " + comment);
+            }
+        }
+
+        // Default view
+        showSection('home');
+    </script>
+
+</body>
+</html>

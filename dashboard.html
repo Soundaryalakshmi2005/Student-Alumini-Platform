@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav {
+            margin-top: 10px;
+        }
+        nav a {
+            color: #ffd700;
+            font-size: 18px;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            margin: 30px auto;
+            width: 80%;
+        }
+        .chat-section, .post-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px auto;
+            width: 50%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .chat-section h2, .post-section h2 {
+            color: #ffd700;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .post-btn {
+            background: linear-gradient(to right, #ff5722, #ff8a50);
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            width: 80%;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            color: white;
+        }
+        .post-btn:hover {
+            background: linear-gradient(to right, #e64a19, #ff7043);
+            transform: scale(1.05);
+        }
+        .chat-form input {
+            width: 70%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+        }
+        .chat-form button {
+            padding: 10px;
+            background: #ff5722;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .chat-form button:hover {
+            background: #e64a19;
+        }
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            font-size: 18px;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .bottom-nav a:hover {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome..!!</h1>
+        <p>You are logged in as a {{ user.user_type }}.</p>
+        <nav>
+            <a href="{{ url_for('profile') }}">Edit Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Chatbot Section -->
+        <div class="chat-section">
+            <h2>Chatbot</h2>
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="user_input" placeholder="Ask me something...">
+                <button type="submit">Send</button>
+            </form>
+            <div id="chat-response"></div>
+        </div>
+
+        <!-- Post Section -->
+        <div class="post-section">
+            <h2>Create a Post</h2>
+            <button class="post-btn">New Post</button>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('post') }}">Post</a>
+        <a href="{{ url_for('messages') }}">Messages</a>
+        <a href="{{ url_for('network') }}">My Network</a>
+    </div>
+
+    <script>
+        // Chatbot functionality
+        document.getElementById('chat-form').onsubmit = async function(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('user_input').value;
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `user_input=${encodeURIComponent(userInput)}`
+            });
+            const data = await response.text();
+            document.getElementById('chat-response').innerText = data;
+        };
+    </script>
+
+</body>
+</html>
